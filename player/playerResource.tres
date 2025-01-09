@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="PlayerResource" load_steps=2 format=3 uid="uid://0yjhxen0s7ip"]
+
+[ext_resource type="Script" path="res://player/playerData.gd" id="1_1m2ok"]
+
+[resource]
+script = ExtResource("1_1m2ok")
+jump_velocity = -500

@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://l8m4b848dgkr"]
+
+[ext_resource type="PackedScene" uid="uid://dc8rb1t2tmqj4" path="res://player/player.tscn" id="1_m5vr0"]
+[ext_resource type="Script" path="res://main.gd" id="1_svrum"]
+[ext_resource type="PackedScene" uid="uid://bdmtqd3hptj58" path="res://pipes/pipes.tscn" id="2_t51q1"]
+[ext_resource type="FontFile" uid="uid://bxmjrtsc2tb" path="res://assets/PublicPixel-rv0pA.ttf" id="3_ri6w5"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1eh7u"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_svrum")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1154.0
+offset_bottom = 652.0
+color = Color(0, 0, 0, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_m5vr0")]
+position = Vector2(576, 324)
+collision_mask = 2
+
+[node name="Ground" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(2, 649)
+shape = SubResource("WorldBoundaryShape2D_1eh7u")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Label" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.0
+offset_top = 42.0
+offset_right = 22.0
+offset_bottom = 86.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.813642, 0.731841, 0.323969, 1)
+theme_override_fonts/font = ExtResource("3_ri6w5")
+theme_override_font_sizes/font_size = 44
+text = "0
+"
+
+[node name="Pipes" type="Node" parent="."]
+
+[node name="Pipes" parent="Pipes" instance=ExtResource("2_t51q1")]
+position = Vector2(1092, 324)
+
+[node name="Pipes2" parent="Pipes" instance=ExtResource("2_t51q1")]
+position = Vector2(1400, 324)
+
+[node name="Pipes3" parent="Pipes" instance=ExtResource("2_t51q1")]
+position = Vector2(1721, 324)
+
+[node name="Pipes4" parent="Pipes" instance=ExtResource("2_t51q1")]
+position = Vector2(2009, 324)
+
+[connection signal="score_zone_passed" from="Pipes/Pipes" to="." method="_on_pipes_score_zone_passed"]
+[connection signal="score_zone_passed" from="Pipes/Pipes2" to="." method="_on_pipes_score_zone_passed"]
+[connection signal="score_zone_passed" from="Pipes/Pipes3" to="." method="_on_pipes_score_zone_passed"]
+[connection signal="score_zone_passed" from="Pipes/Pipes4" to="." method="_on_pipes_score_zone_passed"]

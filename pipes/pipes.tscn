@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdmtqd3hptj58"]
+
+[ext_resource type="Script" path="res://pipes/pipes.gd" id="1_1jaco"]
+[ext_resource type="PackedScene" uid="uid://cpe8p4xchjrt4" path="res://pipes/topPipe/top_pipe.tscn" id="1_5qia8"]
+[ext_resource type="PackedScene" uid="uid://brvg4j045565e" path="res://pipes/bottomPipe/bottom_pipe.tscn" id="2_jnj4q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbavm"]
+resource_local_to_scene = true
+size = Vector2(30, 317)
+
+[node name="Pipes" type="Node2D"]
+script = ExtResource("1_1jaco")
+
+[node name="TopPipe" parent="." instance=ExtResource("1_5qia8")]
+position = Vector2(0, -410)
+collision_layer = 2
+
+[node name="DetectionZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
+shape = SubResource("RectangleShape2D_kbavm")
+
+[node name="BottomPipe" parent="." instance=ExtResource("2_jnj4q")]
+position = Vector2(0, 408)
+collision_layer = 2
+
+[connection signal="body_exited" from="DetectionZone" to="." method="_on_detection_zone_body_exited"]
